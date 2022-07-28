@@ -27,7 +27,7 @@ def signJWT(email: str) -> Dict[str, str]:
 def decodeJWT(token: str) -> dict:
     try:
         # according to document to testing jwt, no need to signature check
-        # in production not recommended
+        # not recommended in production
         decoded_token = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM], options={"verify_signature": False})
         print("decoded_token",decoded_token)
         return decoded_token if decoded_token["expires"] >= time.time() else None
