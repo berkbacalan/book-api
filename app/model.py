@@ -1,8 +1,8 @@
-from pydantic import BaseModel
+from .database import Base
 from sqlalchemy import Column, Integer, String
 
 
-class Book(BaseModel):
+class Book(Base):
     __tablename__ = "book"
 
     id = Column(Integer, primary_key=True)
