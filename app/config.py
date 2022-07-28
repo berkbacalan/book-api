@@ -1,3 +1,4 @@
+import os
 from pydantic import BaseSettings
 
 BASE_URL="http://127.0.0.1:8000/"
@@ -15,3 +16,8 @@ def get_settings() -> Settings:
     settings = Settings()
     print(f"Loading settings for: {settings.env_name}")
     return settings
+
+
+
+SECRET_KEY = os.getenv("SECRET_KEY")
+ALGORITHM = os.getenv("ALGORITHM")
