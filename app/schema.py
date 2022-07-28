@@ -16,3 +16,28 @@ class BookResponse(BaseModel):
 
 class Books(BaseModel):
     books: List[BookResponse]
+
+
+class UserSchema(BaseModel):
+    email: str
+    password: str
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "email": "johndoe@domain.com",
+                "password": "password"
+            }
+        }
+
+class UserLoginSchema(BaseModel):
+    email: str
+    password: str
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "email": "johndoe@domain.com",
+                "password": "password"
+            }
+        }
