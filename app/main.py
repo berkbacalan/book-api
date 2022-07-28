@@ -1,5 +1,4 @@
 from http import HTTPStatus
-from typing import final
 from fastapi import FastAPI, Depends
 from fastapi.exceptions import HTTPException
 from fastapi.responses import Response
@@ -8,7 +7,6 @@ from sqlalchemy.orm import Session
 from app.schema import BookRequest, Books
 from .database import SessionLocal, engine
 from . import model
-from .config import BASE_URL, PROTOCOL
 
 app = FastAPI()
 model.Base.metadata.create_all(bind=engine)
@@ -82,3 +80,16 @@ async def update_book(id: int, name: str, author:str, db: Session = Depends(get_
         db.close()
 
     return Response(status_code=200, content='Book updated.')
+
+@app.get('/book/{id}')
+async def get_book(id: int, db: Session = Depends(get_db)):
+    try:
+        book = db.query(model.Book).filter(model.Book.id==id).first()
+        if book:
+            return book
+        else:
+            return HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="No book with given id.")
+    except Exception as e:
+        raise e
+    finally:
+        db.close()
