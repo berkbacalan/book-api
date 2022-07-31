@@ -28,3 +28,10 @@ In Postman, import the file above. You may find the requests.
 Please mind that, except the User services you need to bearer token to make requests.
 
 BuyTheBook app uses JWT Token Based Authentication.
+
+
+## About the App Services
+
+You may use CRUD operations for book.
+Also you may sign up and login with JWT. There is a buy service for buying a book. At a time, you may buy one book.
+There is also recomendation service to get recommended books.
