@@ -1,13 +1,12 @@
 import os
 from pydantic import BaseSettings
 
-BASE_URL="http://127.0.0.1:8000/"
-PROTOCOL="http://"
 
 class Settings(BaseSettings):
     env_name: str = "Local"
     base_url: str = "http://localhost:8000"
-    db_url: str = "sqlite:///./book.db"
+    db_url: str = "book-api_mongodb_1"
+    mongo_db: str = "book-api_mongodb_1"
 
     class Config:
         env_file = ".env"

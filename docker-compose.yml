@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    env_file:
+      - .env
+    command:  uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 8000
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/app
+    depends_on:
+      - mongodb
+    extra_hosts:
+    - "host.docker.internal:host-gateway"
+
+  mongodb:
+    image: mongo:latest
+    env_file:
+      - .env
+    ports:
+      - "27017:27017"
+    environment:
+      - "MONGO_INITDB_DATABASE=mongodb"
+    command:
+      mongod --quiet --logpath /dev/null
