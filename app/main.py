@@ -162,18 +162,25 @@ async def get_recommendation(db: Session = Depends(get_db), auth = Depends(JWTBe
 
 
         most_bought_category = max(purchase_history.keys(), key=(lambda new_k: purchase_history[new_k]))
-        print(most_bought_category)
 
         res = {}
 
         category_books = db.books.find({'category': most_bought_category})
         for cb in category_books:
             res[cb['sold'] / (1 / cb['price'])] = [cb['name'], cb['author']]
-        print("res",res)
-        result = list(islice({k: v for k, v in sorted(res.items(), key=lambda item: item[1])}, 5))
-        print("result",result)
+        result = sorted(res.items(), key=lambda item: item[1])
+        recommendations = []
+        i = 0
+        while i < 5:
+            try:
+                recommendations.append(result[0][1])
+                result = result[1:]
+            except:
+                pass
+            finally:
+                i += 1
         
-        return HTTPException(status_code=200, detail=result)
+        return HTTPException(status_code=200, detail=recommendations)
     except Exception as e:
         print(str(e))
         raise HTTPException(status_code=HTTPStatus.INTERNAL_SERVER_ERROR, detail=str(e))
