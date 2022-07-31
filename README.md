@@ -3,7 +3,7 @@
 ## To run the project
 
 The project uses MongoDB as a database and FastApi as a backend framework.
-You may easily run the project with Docker. Run the command below
+You may easily run the project with Docker. Run the command below in the book-api folder
 
 ````
 docker-compose up --build -d
