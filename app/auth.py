@@ -15,9 +15,12 @@ def token_response(token: str):
 
 
 def signJWT(email: str) -> Dict[str, str]:
+    '''
+    Token will be usable for 10 mins.
+    '''
     payload = {
         "email": email,
-        "expires": time.time() + 200
+        "expires": time.time() + 600
     }
     token = jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
 
